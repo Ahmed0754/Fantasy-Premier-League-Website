@@ -1,53 +1,38 @@
-# Fantasy Premier League - Backend API
+# ⚽ Fantasy Premier League Backend Java Spring Boot
 
-This is a backend RESTful API built using **Spring Boot** and **Java** for managing a **Fantasy Premier League**-style application. It allows for storing, updating, and retrieving football player statistics, teams, and match data. The project is designed with modularity and scalability in mind and uses **PostgreSQL** as the database.
+This is a Spring Boot backend application built in Java that powers a **Fantasy Premier League** management system. It provides RESTful endpoints to manage football player statistics stored in a PostgreSQL database.
 
-## 🔧 Tech Stack
+> 📊 The player statistics were collected using a **Python-based web scraping script** and imported into the database.
 
-- Java 17+
-- Spring Boot 3.x
-- Spring Data JPA (Hibernate)
-- PostgreSQL
-- Maven
-- Lombok (for reducing boilerplate code)
-- Spring Web (REST API)
+---
+
+## 🛠️ Tech Stack
+
+- **Java 17**
+- **Spring Boot**
+- **Spring Data JPA**
+- **PostgreSQL**
+- **Maven**
+- **Python (for web scraping)**
+
+---
 
 ## 📁 Project Structure
 
-Champions-zone/
-├── src/
-│ └── main/
-│ └── java/
-│ └── com.cl.Champions_zone/
-│ ├── controller/
-│ ├── service/
-│ ├── model/
-│ ├── repository/
-│ └── ChampionsZoneApplication.java
-├── resources/
-│ ├── application.properties
-│ └── data.sql
-└── README.md
+com.cl.Champions_zone
+├── player
+│ ├── Player.java # Player entity
+│ ├── PlayerController.java # REST API controller
+│ ├── PlayerService.java # Business logic layer
+│ └── PlayerRepository.java # Data access layer
 
-markdown
+yaml
 Copy
 Edit
 
-## 📌 Key Features
-
-- ✅ RESTful API Endpoints for Player statistics
-- ✅ Automatic table creation via JPA Entity mapping
-- ✅ CSV data import support for bulk player stats
-- ✅ Clean separation between layers: Controller, Service, Repository
-- ✅ Error handling and validation (ongoing improvements)
+---
 
 ## 🚀 Getting Started
-
-### Prerequisites
-
-- Java 17+
-- PostgreSQL database running
-- Maven
 
 ### 1. Clone the Repository
 
@@ -56,69 +41,75 @@ git clone https://github.com/Ahmed0754/Fantasy-Premier-Leaguer-Website.git
 cd Fantasy-Premier-Leaguer-Website
 ```
 
-### 2. Configure application.properties
-Update your database settings in src/main/resources/application.properties:
+### 2. Database Setup
+Make sure you have PostgreSQL installed and running.
+
+Create a database (e.g. fantasydb) and import the scraped data using a .csv file or SQL script.
+
+### 3. Configure Application Properties
+Update src/main/resources/application.properties with your PostgreSQL credentials:
 
 properties
 Copy
 Edit
-spring.datasource.url=jdbc:postgresql://localhost:5432/your_db_name
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-
+spring.datasource.url=jdbc:postgresql://localhost:5432/fantasydb
+spring.datasource.username=your_db_username
+spring.datasource.password=your_db_password
 spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-### 3. Run the Application
+
+### 4. Run the Application
+Use Maven to start the backend server:
+
 bash
 Copy
 Edit
 ./mvnw spring-boot:run
-Or from your IDE (IntelliJ, VS Code, etc.), run the ChampionsZoneApplication.java class.
 
-### 4. Test API Endpoints
-GET /players – Get all players
+### 5. Test the API
+Open your browser or Postman and hit:
 
-GET /players/{id} – Get player by ID
-
-POST /players – Create a new player
-
-PUT /players/{id} – Update player
-
-DELETE /players/{id} – Delete player
-
-You can test using tools like Postman or cURL.
-
-🗃️ Example Entity: Player
-java
+bash
 Copy
 Edit
-@Entity
-@Table(name = "player")
-public class Player {
-    @Id
-    private Long id;
-    private String name;
-    private String position;
-    private String club;
-    private int totalPoints;
-    private int goalsScored;
-    // ...other fields
-}
-✅ To-Do / Improvements
-🔄 Add JWT-based authentication for securing endpoints
+GET http://localhost:8080/player
+🔁 Example Endpoints
+GET /player – Get all players
 
-📊 Add Swagger/OpenAPI documentation
+GET /player/{id} – Get a player by ID
 
-📂 Implement pagination and filtering on endpoints
+POST /player – Add a new player
 
-🔄 Dockerize the project
+PUT /player/{id} – Update player info
 
-✨ Add frontend (React or Angular) to visualize data
+DELETE /player/{id} – Soft delete a player
 
-🙌 Contributing
-Feel free to fork this repo, open issues, or submit pull requests to improve the project.
+🧠 Data Source
+The dataset used in this project was created by scraping live football stats from the official Fantasy Premier League website using a custom Python script. The data was exported to CSV and imported into PostgreSQL using:
+
+sql
+Copy
+Edit
+\COPY player_statistic FROM '/path/to/stats.csv' DELIMITER ',' CSV HEADER;
+📌 Future Improvements
+Add Swagger API documentation
+
+Implement pagination & filtering
+
+Add user authentication
+
+Improve error handling and validation
+
+🧑‍💻 Author
+Ahmed Ali
+GitHub: @Ahmed0754
 
 📄 License
-MIT License
+This project is licensed under the MIT License.
 
-Made by Syed Ahmed Ali
+yaml
+Copy
+Edit
+
+---
+
+Let me know if you want a matching `requirements.txt` or the scraping script documented in 
